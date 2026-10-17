@@ -1,0 +1,27 @@
+{
+  "name": "playwrigth",
+  "version": "1.0.0",
+  "description": "Demo Project for Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test:ui": "npx playwright test --ui",
+    "debug": "npx playwright test --debug",
+    "report": "npx playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkapure21/Playwrigth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hkapure21/Playwrigth/issues"
+  },
+  "homepage": "https://github.com/hkapure21/Playwrigth#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5"
+  }
+}
