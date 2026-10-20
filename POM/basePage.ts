@@ -1,7 +1,7 @@
 import { type Page, type Locator } from '@playwright/test';
 
 export abstract class BasePage {
-  constructor(protected readonly page: Page) {}
+  constructor(protected readonly page: Page) { }
 
   /**
    * Navigate to a URL path
@@ -22,5 +22,9 @@ export abstract class BasePage {
    */
   async getCurrentUrl(): Promise<string> {
     return this.page.url();
+  }
+
+  async goToCart() {
+    await this.page.locator(".shopping_cart_container").click();
   }
 }

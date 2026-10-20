@@ -8,13 +8,11 @@ export class LoginPage extends BasePage {
   readonly loginButton: Locator;
   readonly errorMessage: Locator;
 
-  private readonly pageUrl: string = 'https://www.saucedemo.com/';
-
   constructor(page: Page) {
     super(page);
-    this.usernameInput = page.locator('#user-name');
-    this.passwordInput = page.locator('#password');
-    this.loginButton = page.locator('#login-button');
+    this.usernameInput = page.getByPlaceholder('Username');
+    this.passwordInput = page.getByPlaceholder('Password');
+    this.loginButton = page.getByRole('button', { name: 'Login' });
     this.errorMessage = page.locator('[data-test="error"]');
   }
 
@@ -22,7 +20,7 @@ export class LoginPage extends BasePage {
    * Navigate directly to the login page
    */
   async open() {
-    await this.navigate(this.pageUrl);
+    await this.navigate('/');
   }
 
   /**
