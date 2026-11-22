@@ -1,5 +1,6 @@
-import { type Page, type Locator } from "@playwright/test"
-import { BasePage } from "./basePage"
+import { type Page, type Locator } from "@playwright/test";
+import { BasePage } from "./basePage";
+import { CustomerInfo } from "../types/testData";
 
 export class CheckoutPage extends BasePage {
     readonly continueButton: Locator;
@@ -9,6 +10,7 @@ export class CheckoutPage extends BasePage {
     readonly finishButton: Locator;
     readonly completeHeader: Locator;
     readonly completeText: Locator;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -19,6 +21,7 @@ export class CheckoutPage extends BasePage {
         this.finishButton = page.getByRole('button', { name: 'Finish' });
         this.completeHeader = page.locator('[data-test="complete-header"]');
         this.completeText = page.locator('[data-test="complete-text"]');
+        this.errorMessage = page.locator('[data-test="error"]');
     }
 
     // Retained for backward compatibility
@@ -34,9 +37,18 @@ export class CheckoutPage extends BasePage {
         await this.finishButton.click();
     }
 
-    async fillPersonalInformation(firstName: string, lastName: string, postalCode: string) {
-        await this.firstNameTextbox.fill(firstName);
-        await this.lastNameTextbox.fill(lastName);
-        await this.postalCodeTextbox.fill(postalCode);
+    /**
+     * Fills personal information. Accepts either a CustomerInfo object or individual strings.
+     */
+    async fillPersonalInformation(infoOrFirstName: CustomerInfo | string, lastName?: string, postalCode?: string) {
+        if (typeof infoOrFirstName === 'object') {
+            await this.firstNameTextbox.fill(infoOrFirstName.firstName);
+            await this.lastNameTextbox.fill(infoOrFirstName.lastName);
+            await this.postalCodeTextbox.fill(infoOrFirstName.postalCode);
+        } else {
+            await this.firstNameTextbox.fill(infoOrFirstName);
+            if (lastName !== undefined) await this.lastNameTextbox.fill(lastName);
+            if (postalCode !== undefined) await this.postalCodeTextbox.fill(postalCode);
+        }
     }
-}
+}

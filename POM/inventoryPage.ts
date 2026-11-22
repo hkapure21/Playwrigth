@@ -10,6 +10,13 @@ export class InventoryPage extends BasePage {
     }
 
     /**
+     * Navigate directly to the inventory page (requires authenticated session)
+     */
+    async open() {
+        await this.navigate('/inventory.html');
+    }
+
+    /**
      * Get locator for a specific product card by its name
      */
     getProduct(productName: string): Locator {
